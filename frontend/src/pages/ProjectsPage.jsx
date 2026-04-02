@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import {
   projectFilters,
@@ -20,6 +21,10 @@ function ProjectsPage() {
 
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-24">
+      <Seo
+        title="Projects"
+        description="Explore Vortexus project references across water treatment, solar pumping, borehole systems, desalination, and community water infrastructure."
+      />
       <FullBleedHero
         eyebrow="Project Portfolio"
         title="Our impactful projects across treatment, pumping, solar, and community water delivery."

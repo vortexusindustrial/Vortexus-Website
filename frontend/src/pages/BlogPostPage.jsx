@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Navigate, NavLink, useParams } from 'react-router-dom'
 import BlogContentRenderer from '../components/blog/BlogContentRenderer'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { getBlogPostBySlug, getRelatedBlogPosts } from '../data/blogPosts'
 
@@ -59,6 +60,7 @@ function BlogPostPage() {
 
   return (
     <>
+      <Seo title={post.title} description={post.seoDescription || post.excerpt} />
       <div className="space-y-14 text-brand-ink lg:space-y-20">
         <FullBleedHero
           eyebrow={post.categoryLabel}

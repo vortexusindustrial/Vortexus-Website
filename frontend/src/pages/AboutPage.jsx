@@ -1,4 +1,5 @@
 import BlueAccentHero from '../components/sections/BlueAccentHero'
+import Seo from '../components/seo/Seo'
 
 const storyPoints = [
   'Provide dependable water treatment, pumping, and borehole solutions through resilient engineering.',
@@ -30,6 +31,10 @@ const impactStats = [
 function AboutPage() {
   return (
     <div className="space-y-20 pb-8 lg:space-y-28">
+      <Seo
+        title="About Us"
+        description="Learn about Vortexus Industrial Solutions, the team, mission, values, and engineering approach behind our water, pumping, solar, and automation systems."
+      />
       <BlueAccentHero
         eyebrow="About Vortexus"
         title="About Us"

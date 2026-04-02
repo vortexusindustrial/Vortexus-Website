@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { company } from '../data/site/company'
 
@@ -111,6 +112,10 @@ const serviceStrengths = [
 function ServicesPage() {
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-24">
+      <Seo
+        title="Services"
+        description={`${company.name} provides water treatment systems, RO plants, UV and UF systems, dosing equipment, booster pumps, multistage pumps, submersible pumps, solar water pumps, and related engineering support.`}
+      />
       <FullBleedHero
         eyebrow="Service Capability"
         title="Services that help clients understand exactly what Vortexus can deliver."

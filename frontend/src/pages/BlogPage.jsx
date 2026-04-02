@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { blogCategories, blogPosts } from '../data/blogPosts'
 
@@ -32,6 +33,10 @@ function BlogPage() {
 
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-24">
+      <Seo
+        title="Blog"
+        description="Read Vortexus articles on water treatment, solar boreholes, pumping systems, project delivery, and practical engineering guidance for clients and operators."
+      />
       <FullBleedHero
         eyebrow="Insights & Articles"
         title="A modern editorial space for water, pumping, solar, and project delivery insight."

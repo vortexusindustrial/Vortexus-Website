@@ -1,11 +1,16 @@
 import { offices as officeLocations } from '../data/mock/offices'
 import BlueAccentHero from '../components/sections/BlueAccentHero'
+import Seo from '../components/seo/Seo'
 
 function ContactPage() {
   const activeOffices = officeLocations.filter((office) => office.coordinates)
 
   return (
     <div className="text-brand-ink">
+      <Seo
+        title="Contact Us"
+        description="Contact Vortexus for water treatment projects, borehole systems, pump solutions, solar water delivery, partnerships, and regional engineering support."
+      />
       <BlueAccentHero
         eyebrow="Contact Vortexus"
         title="Contact Us"

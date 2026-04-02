@@ -1,4 +1,5 @@
 import { Navigate, NavLink, useParams } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { getProjectBySlug } from '../data/projectsCatalog'
 
@@ -12,6 +13,7 @@ function ProjectDetailPage() {
 
   return (
     <div className="space-y-14 text-brand-ink lg:space-y-20">
+      <Seo title={project.title} description={project.summary} />
       <FullBleedHero
         eyebrow="Project Detail"
         title={project.title}

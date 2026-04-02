@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { company } from '../data/site/company'
 import { solutionFamilies } from '../data/solutionsCatalog'
@@ -46,6 +47,10 @@ function SolutionsPage() {
 
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-20">
+      <Seo
+        title="Solutions"
+        description="Explore Vortexus solution families across borehole systems, domestic water treatment, industrial treatment plants, chemicals and media, water pumps, and solar-powered water infrastructure."
+      />
       <FullBleedHero
         eyebrow="Solution Platform"
         title="Water, pumping, treatment, and energy systems organized for real-world delivery."

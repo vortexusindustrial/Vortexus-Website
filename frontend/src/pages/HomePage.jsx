@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import Seo from '../components/seo/Seo'
 import { projects } from '../data/projectsCatalog'
 import { company } from '../data/site/company'
 import { solutionFamilies } from '../data/solutionsCatalog'
@@ -111,6 +112,10 @@ const processSteps = [
 function HomePage() {
   return (
     <div className="space-y-16 pb-8 lg:space-y-22">
+      <Seo
+        title="Water, Energy & Automation Systems"
+        description={`${company.name} delivers water treatment, borehole systems, pumping, solar-powered water infrastructure, and engineering support for commercial, industrial, institutional, and community infrastructure.`}
+      />
       <section className="relative left-1/2 -mt-8 min-h-[38rem] w-screen -translate-x-1/2 overflow-hidden bg-brand-ink lg:-mt-12 lg:min-h-[44rem]">
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
