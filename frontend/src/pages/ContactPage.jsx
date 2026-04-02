@@ -1,14 +1,9 @@
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from 'react-simple-maps/dist/index.es.js'
-import geoData from 'world-atlas/countries-110m.json'
 import { offices as officeLocations } from '../data/mock/offices'
 import BlueAccentHero from '../components/sections/BlueAccentHero'
 
 function ContactPage() {
+  const activeOffices = officeLocations.filter((office) => office.coordinates)
+
   return (
     <div className="text-brand-ink">
       <BlueAccentHero
@@ -133,61 +128,76 @@ function ContactPage() {
           </p>
         </div>
 
-        <div className="mt-14 flex justify-center">
-          <div className="w-full max-w-5xl">
-            <ComposableMap
-              projection="geoEqualEarth"
-              projectionConfig={{ scale: 165 }}
-              className="w-full"
-              aria-label="World map showing global operations"
-            >
-              <Geographies geography={geoData}>
-                {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      style={{
-                        default: {
-                          fill: 'var(--color-map-land)',
-                          stroke: 'var(--color-map-stroke)',
-                          strokeWidth: 0.5,
-                          outline: 'none',
-                        },
-                        hover: {
-                          fill: 'var(--color-map-land-hover)',
-                          stroke: 'var(--color-map-stroke)',
-                          strokeWidth: 0.5,
-                          outline: 'none',
-                        },
-                        pressed: {
-                          fill: 'var(--color-map-land-hover)',
-                          stroke: 'var(--color-map-stroke)',
-                          strokeWidth: 0.5,
-                          outline: 'none',
-                        },
-                      }}
-                    />
-                  ))
-                }
-              </Geographies>
+        <div className="mt-14">
+          <div className="overflow-hidden rounded-[2rem] border border-brand-border bg-white shadow-[0_24px_80px_rgba(35,33,32,0.08)]">
+            <div className="grid gap-8 px-6 py-8 lg:grid-cols-[0.92fr_1.08fr] lg:px-10 lg:py-10">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[var(--color-accent-blue-highlight)]">
+                  Worldwide Delivery Network
+                </p>
+                <h3 className="mt-4 font-display text-3xl font-semibold text-brand-ink sm:text-4xl">
+                  Regional teams with cross-border project support.
+                </h3>
+                <p className="mt-4 max-w-2xl text-base leading-8 text-brand-muted">
+                  We coordinate projects from East Africa, Southern Africa, the Indian Ocean,
+                  and remote delivery hubs. That means clients get engineering support,
+                  response coordination, and implementation visibility without depending on a
+                  single physical office.
+                </p>
 
-              {officeLocations
-                .filter((office) => office.coordinates)
-                .map((office, index) => (
-                  <Marker key={office.country} coordinates={office.coordinates}>
-                    <g>
-                      <circle
-                        r="13"
-                        fill="var(--color-marker-ring)"
-                        className={index % 2 === 0 ? 'animate-pulse' : ''}
-                      />
-                      <circle r="4.5" fill="var(--color-marker-solid)" />
-                    </g>
-                  </Marker>
-                ))}
-            </ComposableMap>
-            <div className="mt-4 text-center text-xs font-semibold uppercase tracking-[0.4em] text-brand-muted/60">
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {activeOffices.map((office, index) => (
+                    <div
+                      key={office.country}
+                      className="rounded-[1.4rem] border border-brand-border bg-brand-canvas/70 px-4 py-4"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`h-3 w-3 rounded-full bg-[var(--color-marker-solid)] ${index % 2 === 0 ? 'animate-pulse' : ''}`} />
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-ink">
+                          {office.country}
+                        </p>
+                      </div>
+                      <p className="mt-3 text-sm leading-7 text-brand-muted">
+                        {office.address}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.8rem] border border-brand-border bg-[linear-gradient(160deg,rgba(16,27,143,0.96),rgba(41,86,227,0.92),rgba(70,166,255,0.88))] p-6 text-white">
+                <div className="grid gap-4 md:grid-cols-2">
+                  {activeOffices.map((office, index) => (
+                    <div
+                      key={`${office.country}-hub`}
+                      className="rounded-[1.35rem] border border-white/14 bg-white/8 px-4 py-4 backdrop-blur-sm"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`h-2.5 w-2.5 rounded-full bg-white ${index % 2 === 0 ? 'animate-pulse' : ''}`} />
+                        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/92">
+                          {office.country}
+                        </p>
+                      </div>
+                      <p className="mt-3 text-sm leading-7 text-white/80">
+                        {office.company}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 rounded-[1.35rem] border border-white/14 bg-white/8 px-4 py-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/74">
+                    Coverage
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-white/84">
+                    Commercial, institutional, industrial, agricultural, community water,
+                    and remote implementation support across regional and international projects.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-brand-border px-6 py-4 text-center text-xs font-semibold uppercase tracking-[0.4em] text-brand-muted/60 lg:px-10">
               Worldwide Delivery Network
             </div>
           </div>
