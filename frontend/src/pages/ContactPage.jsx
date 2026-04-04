@@ -1,9 +1,75 @@
+import { useState } from 'react'
 import { offices as officeLocations } from '../data/mock/offices'
 import BlueAccentHero from '../components/sections/BlueAccentHero'
 import Seo from '../components/seo/Seo'
+import { apiRequest } from '../lib/api'
 
 function ContactPage() {
   const activeOffices = officeLocations.filter((office) => office.coordinates)
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    companyName: '',
+    position: '',
+    message: '',
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [submitSuccess, setSubmitSuccess] = useState('')
+
+  const handleChange = (field) => (event) => {
+    setFormData((current) => ({ ...current, [field]: event.target.value }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setSubmitError('')
+    setSubmitSuccess('')
+    setIsSubmitting(true)
+
+    const customerName = `${formData.firstName} ${formData.lastName}`.trim()
+
+    try {
+      await apiRequest('/leads/public', {
+        method: 'POST',
+        body: {
+          customer_name: customerName,
+          company_name: formData.companyName,
+          email: formData.email,
+          phone: formData.phone,
+          source_channel: 'website',
+          source_medium: 'direct',
+          landing_page: '/contact-us',
+          first_page: '/contact-us',
+          service_interest: 'General inquiry',
+          message: [
+            formData.position ? `Position: ${formData.position}` : null,
+            formData.message,
+          ]
+            .filter(Boolean)
+            .join('\n\n'),
+          attribution_owner: 'website',
+        },
+      })
+
+      setSubmitSuccess('Your enquiry has been submitted successfully. Our team will reach out to you.')
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        companyName: '',
+        position: '',
+        message: '',
+      })
+    } catch (error) {
+      setSubmitError(error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="text-brand-ink">
@@ -29,7 +95,7 @@ function ContactPage() {
           </p>
         </div>
 
-        <form className="mt-12 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-12 space-y-6">
           <div className="grid gap-6 md:grid-cols-2">
             <label className="block">
               <span className="mb-2 block text-sm font-medium text-brand-ink">
@@ -37,8 +103,11 @@ function ContactPage() {
               </span>
               <input
                 type="text"
+                value={formData.firstName}
+                onChange={handleChange('firstName')}
                 placeholder="First Name"
                 className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
+                required
               />
             </label>
             <label className="block">
@@ -47,8 +116,11 @@ function ContactPage() {
               </span>
               <input
                 type="text"
+                value={formData.lastName}
+                onChange={handleChange('lastName')}
                 placeholder="Last Name"
                 className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
+                required
               />
             </label>
           </div>
@@ -59,8 +131,11 @@ function ContactPage() {
             </span>
             <input
               type="email"
+              value={formData.email}
+              onChange={handleChange('email')}
               placeholder="Email Address"
               className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
+              required
             />
           </label>
 
@@ -70,8 +145,11 @@ function ContactPage() {
             </span>
             <input
               type="tel"
+              value={formData.phone}
+              onChange={handleChange('phone')}
               placeholder="Enter Phone Number"
               className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
+              required
             />
           </label>
 
@@ -82,6 +160,8 @@ function ContactPage() {
               </span>
               <input
                 type="text"
+                value={formData.companyName}
+                onChange={handleChange('companyName')}
                 placeholder="e.g Waffle Group"
                 className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
               />
@@ -92,6 +172,8 @@ function ContactPage() {
               </span>
               <input
                 type="text"
+                value={formData.position}
+                onChange={handleChange('position')}
                 placeholder="e.g Customer Service"
                 className="h-12 w-full rounded-[10px] border border-brand-border bg-white px-4 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
               />
@@ -104,17 +186,33 @@ function ContactPage() {
             </span>
             <textarea
               rows="6"
+              value={formData.message}
+              onChange={handleChange('message')}
               placeholder="Your Message"
               className="w-full rounded-[10px] border border-brand-border bg-white px-4 py-3 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/60 focus:border-[var(--color-accent-blue-highlight)]"
+              required
             />
           </label>
+
+          {submitError ? (
+            <div className="rounded-[1rem] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {submitError}
+            </div>
+          ) : null}
+
+          {submitSuccess ? (
+            <div className="rounded-[1rem] border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+              {submitSuccess}
+            </div>
+          ) : null}
 
           <div className="flex justify-center">
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[var(--color-accent-blue-highlight)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-blue-hover)]"
+              disabled={isSubmitting}
+              className="inline-flex items-center justify-center bg-[var(--color-accent-blue-highlight)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-blue-hover)] disabled:cursor-not-allowed disabled:opacity-70"
             >
-              Contact Us
+              {isSubmitting ? 'Submitting...' : 'Contact Us'}
             </button>
           </div>
         </form>

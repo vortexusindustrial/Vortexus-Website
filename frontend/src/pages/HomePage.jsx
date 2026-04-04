@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import LeadCaptureModal from '../components/leads/LeadCaptureModal'
 import Seo from '../components/seo/Seo'
 import { projects } from '../data/projectsCatalog'
 import { company } from '../data/site/company'
@@ -6,8 +8,8 @@ import { solutionFamilies } from '../data/solutionsCatalog'
 
 const treatmentImage = '/section-medical-water.jpg'
 const fieldImage = '/hero-field-work.jpeg'
-const processImage = '/section-school-ro-plant.jpg'
-const supportImage = '/section-tap-water.jpg'
+const processImage = '/images/assets/img/projects/project banner.webp'
+const supportImage = '/images/assets/img/projects/solar projects/somalia.jpg'
 const heroSlides = [
   {
     src: treatmentImage,
@@ -110,6 +112,8 @@ const processSteps = [
 ]
 
 function HomePage() {
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false)
+
   return (
     <div className="space-y-16 pb-8 lg:space-y-22">
       <Seo
@@ -148,12 +152,13 @@ function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <NavLink
-                to="/contact-us"
+              <button
+                type="button"
+                onClick={() => setIsLeadModalOpen(true)}
                 className="inline-flex items-center justify-center rounded-full bg-brand-green px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-green-soft"
               >
                 Request a Consultation
-              </NavLink>
+              </button>
               <NavLink
                 to="/services"
                 className="inline-flex items-center justify-center rounded-full border border-white/24 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/12"
@@ -205,6 +210,13 @@ function HomePage() {
             >
               View Services
             </NavLink>
+            <button
+              type="button"
+              onClick={() => setIsLeadModalOpen(true)}
+              className="inline-flex items-center justify-center rounded-full border border-brand-border bg-white px-5 py-3 text-sm font-semibold text-brand-ink transition hover:border-brand-green hover:text-brand-green"
+            >
+              Quick Inquiry
+            </button>
           </div>
         </div>
 
@@ -342,8 +354,8 @@ function HomePage() {
           <div className="relative overflow-hidden rounded-[1.7rem] bg-brand-surface shadow-[0_16px_40px_rgba(35,33,32,0.07)] aspect-[4/5] sm:aspect-[1.15/1] lg:max-w-[20rem]">
             <img
               src={supportImage}
-              alt="Water pump infrastructure and support work"
-              className="h-full w-full object-contain p-2 sm:p-3"
+              alt="Field-deployed water infrastructure for community and institutional systems"
+              className="h-full w-full object-cover object-center"
             />
             <div className="theme-image-overlay-field absolute inset-0" />
             <div className="absolute inset-x-0 bottom-0 p-5 text-white">
@@ -462,8 +474,8 @@ function HomePage() {
         <div className="relative mt-8 overflow-hidden rounded-[1.8rem] bg-brand-surface shadow-[0_18px_46px_rgba(35,33,32,0.08)] aspect-[5/4] lg:aspect-[2.45/1]">
           <img
             src={processImage}
-            alt="Water operations and process workflow"
-            className="h-full w-full object-contain p-2 sm:p-3"
+            alt="Engineering team and field delivery process"
+            className="h-full w-full object-cover object-center"
           />
           <div className="theme-process-overlay absolute inset-0" />
           <div className="theme-process-radial absolute left-0 top-0 h-full w-full" />
@@ -521,6 +533,13 @@ function HomePage() {
           </div>
         </div>
       </section>
+      <LeadCaptureModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        title="Request a Consultation"
+        landingPage="/"
+        serviceInterest="General consultation"
+      />
     </div>
   )
 }

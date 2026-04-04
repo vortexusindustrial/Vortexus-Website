@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import LeadCaptureModal from '../components/leads/LeadCaptureModal'
 import Seo from '../components/seo/Seo'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import { company } from '../data/site/company'
@@ -110,6 +112,21 @@ const serviceStrengths = [
 ]
 
 function ServicesPage() {
+  const [leadModalConfig, setLeadModalConfig] = useState({
+    isOpen: false,
+    title: 'Talk to Our Team',
+    productInterest: '',
+    serviceInterest: '',
+  })
+
+  const openLeadModal = (config) =>
+    setLeadModalConfig({
+      isOpen: true,
+      title: config.title,
+      productInterest: config.productInterest || '',
+      serviceInterest: config.serviceInterest || '',
+    })
+
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-24">
       <Seo
@@ -125,12 +142,17 @@ function ServicesPage() {
         overlayClassName="theme-hero-dark"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
-          <NavLink
-            to="/contact-us"
+          <button
+            type="button"
+            onClick={() =>
+              openLeadModal({
+                title: 'Talk to Our Team',
+                serviceInterest: 'Service inquiry',
+              })}
             className="inline-flex items-center justify-center rounded-full bg-brand-green px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-green-soft"
           >
             Talk to Our Team
-          </NavLink>
+          </button>
           <NavLink
             to="/solutions"
             className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/12"
@@ -189,6 +211,18 @@ function ServicesPage() {
                   <p className="text-sm leading-7 text-brand-muted">
                     {service.text}
                   </p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openLeadModal({
+                        title: `Inquire about ${service.title}`,
+                        productInterest: service.title,
+                        serviceInterest: group.title,
+                      })}
+                    className="inline-flex items-center justify-center rounded-full border border-brand-border bg-white px-4 py-2.5 text-sm font-semibold text-brand-ink transition hover:border-brand-green hover:text-brand-green"
+                  >
+                    Quick Inquiry
+                  </button>
                 </div>
               </article>
             ))}
@@ -256,6 +290,18 @@ function ServicesPage() {
           </div>
         </div>
       </section>
+      <LeadCaptureModal
+        isOpen={leadModalConfig.isOpen}
+        onClose={() =>
+          setLeadModalConfig((current) => ({
+            ...current,
+            isOpen: false,
+          }))}
+        title={leadModalConfig.title}
+        landingPage="/services"
+        productInterest={leadModalConfig.productInterest}
+        serviceInterest={leadModalConfig.serviceInterest}
+      />
     </div>
   )
 }

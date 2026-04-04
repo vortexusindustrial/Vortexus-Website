@@ -30,7 +30,6 @@ export const footerGroups = [
     links: [
       { label: 'About Us', to: '/about-us' },
       { label: 'Projects', to: '/projects' },
-      { label: 'News', to: '/news' },
       { label: 'Blog', to: '/blog' },
       { label: 'Contact Us', to: '/contact-us' },
     ],
