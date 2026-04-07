@@ -7,6 +7,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaMapMarkerAlt,
+  FaRegCommentDots,
   FaPhoneAlt,
   FaPrint,
   FaTwitter,
@@ -73,7 +74,7 @@ function Footer() {
 
   return (
     <footer className="mt-12 bg-brand-ink text-white">
-      <div className="fixed right-4 bottom-4 z-40 flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
+      <div className="fixed right-3 bottom-3 z-40 flex flex-col items-end gap-3 sm:right-5 sm:bottom-5 lg:right-8 lg:bottom-8 xl:right-10">
         <div
           className={[
             'overflow-hidden transition-all duration-300',
@@ -82,7 +83,7 @@ function Footer() {
               : 'max-h-0 translate-y-4 opacity-0',
           ].join(' ')}
         >
-          <div className="flex flex-col items-center gap-3 py-2 pr-2 sm:gap-4 sm:pr-3">
+          <div className="flex flex-col items-center gap-4 py-2 pr-1.5 sm:gap-4 sm:pr-2.5">
             {socialLinks.map((item, index) => {
               const Icon = socialIcons[item.icon]
               const iconColor = socialIconColors[item.icon]
@@ -92,7 +93,7 @@ function Footer() {
                   key={item.label}
                   href={item.href}
                   aria-label={item.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[1.55rem] transition-transform duration-300 hover:scale-115 sm:h-12 sm:w-12 sm:text-[1.7rem]"
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[1.45rem] transition-transform duration-300 hover:scale-110 sm:h-12 sm:w-12 sm:text-[1.65rem]"
                   style={{
                     color: iconColor,
                     opacity: isSocialPanelOpen ? 1 : 0,
@@ -114,23 +115,21 @@ function Footer() {
         <button
           type="button"
           aria-label={isSocialPanelOpen ? 'Close social links' : 'Open social links'}
-          className="flex h-14 w-14 items-center justify-center rounded-full text-white transition hover:-translate-y-0.5 sm:h-16 sm:w-16"
+          className="flex h-14 w-14 items-center justify-center rounded-full text-white transition hover:-translate-y-0.5 sm:h-15 sm:w-15 lg:h-16 lg:w-16"
           style={{
             backgroundColor: 'var(--color-accent-orange)',
             boxShadow: '0 16px 36px rgba(255, 90, 10, 0.32)',
           }}
           onClick={() => setIsSocialPanelOpen((open) => !open)}
         >
-          <span className="material-symbols-outlined text-[1.8rem] text-white sm:text-[2rem]">
-            forum
-          </span>
+          <FaRegCommentDots className="text-[1.55rem] text-white sm:text-[1.7rem] lg:text-[1.8rem]" />
         </button>
 
         {showBackToTop && (
           <button
             type="button"
             aria-label="Back to top"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-green text-white shadow-[0_12px_28px_rgba(43,162,82,0.24)] transition hover:bg-brand-green-soft"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-green text-white shadow-[0_12px_28px_rgba(43,162,82,0.24)] transition hover:bg-brand-green-soft sm:h-12 sm:w-12"
             onClick={handleBackToTop}
           >
             <FaArrowUp />
@@ -147,22 +146,23 @@ function Footer() {
               className="h-14 w-auto object-contain sm:h-16"
             />
             <p className="mt-5 max-w-2xl text-sm leading-8 text-white/72">
-              Vortexus Industrial Solutions supports water treatment systems,
-              borehole infrastructure, pumps, solar water delivery, and related
-              engineering support for clients who need clear, dependable execution.
+              Vortexus Industrial Solutions is being structured into an RFQ-ready
+              industrial product catalog covering water-treatment equipment,
+              chemicals, pumps, instrumentation, automation, tanks, and related
+              process components.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <NavLink
-                to="/contact-us"
+                to="/request-quote"
                 className="rounded-full bg-brand-green px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-green-soft"
               >
-                Start a Project
+                Request Quote
               </NavLink>
               <NavLink
-                to="/services"
+                to="/products"
                 className="rounded-full border border-white/14 bg-white/6 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
-                View Services
+                Browse Products
               </NavLink>
             </div>
           </div>
@@ -190,9 +190,9 @@ function Footer() {
           </h3>
           <div className="mt-3 h-0.5 w-12 bg-brand-green" />
           <p className="mt-6 max-w-sm text-sm leading-8 text-white/68">
-            We build and support systems across treatment, pumping, boreholes,
-            solar water delivery, and connected infrastructure for homes,
-            institutions, commercial sites, and industrial operations.
+            The public site is moving toward a product-first industrial catalog
+            so buyers can browse categories, compare product groups, and move
+            directly into quotation requests.
           </p>
         </div>
 

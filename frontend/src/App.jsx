@@ -9,10 +9,17 @@ import AboutPage from './pages/AboutPage'
 import BlogPage from './pages/BlogPage'
 import BlogPostPage from './pages/BlogPostPage'
 import ContactPage from './pages/ContactPage'
+import CompareProductsPage from './pages/CompareProductsPage'
 import HomePage from './pages/HomePage'
+import IndustriesPage from './pages/IndustriesPage'
+import IndustryDetailPage from './pages/IndustryDetailPage'
 import NewsPage from './pages/NewsPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import ProjectsPage from './pages/ProjectsPage'
+import ProductCategoryPage from './pages/ProductCategoryPage'
+import ProductDetailPage from './pages/ProductDetailPage'
+import ProductsPage from './pages/ProductsPage'
+import RequestQuotePage from './pages/RequestQuotePage'
 import ServicesPage from './pages/ServicesPage'
 import SolutionDetailPage from './pages/SolutionDetailPage'
 import SolutionsPage from './pages/SolutionsPage'
@@ -36,6 +43,13 @@ function App() {
         <Route element={<SiteLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about-us" element={<AboutPage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="products/category/:categorySlug" element={<ProductCategoryPage />} />
+          <Route path="products/item/:productSlug" element={<ProductDetailPage />} />
+          <Route path="compare" element={<CompareProductsPage />} />
+          <Route path="industries" element={<IndustriesPage />} />
+          <Route path="industries/:industrySlug" element={<IndustryDetailPage />} />
+          <Route path="request-quote" element={<RequestQuotePage />} />
           <Route path="services" element={<ServicesPage />} />
           <Route path="solutions" element={<SolutionsPage />} />
           <Route path="solutions/:slug" element={<SolutionDetailPage />} />

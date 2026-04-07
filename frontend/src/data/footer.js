@@ -2,59 +2,56 @@ import { company } from './site/company'
 
 export const footerGroups = [
   {
-    title: 'Solutions',
+    title: 'Products',
     links: [
-      { label: 'Borehole Solutions', to: '/solutions/borehole-solutions' },
-      { label: 'Domestic Water Treatment', to: '/solutions/domestic-water-treatment' },
-      {
-        label: 'Commercial & Industrial Treatment',
-        to: '/solutions/commercial-industrial-water-treatment',
-      },
-      { label: 'Chemicals & Media', to: '/solutions/chemicals-media' },
-      { label: 'Water Pumps', to: '/solutions/water-pumps' },
-      { label: 'Solar Solutions', to: '/solutions/solar-solutions' },
+      { label: 'Pre-Treatment Systems', to: '/products/category/pre-treatment-systems' },
+      { label: 'Filtration Systems', to: '/products/category/filtration-systems' },
+      { label: 'RO Systems', to: '/products/category/reverse-osmosis-systems' },
+      { label: 'Water Treatment Chemicals', to: '/products/category/water-treatment-chemicals' },
+      { label: 'Pumps & Fluid Handling', to: '/products/category/pumps-fluid-handling' },
+      { label: 'Monitoring & Instrumentation', to: '/products/category/monitoring-instrumentation' },
     ],
   },
   {
-    title: 'Services',
+    title: 'Industries',
     links: [
-      { label: 'Water Treatment & Systems', to: '/services' },
-      { label: 'Pumps & Machinery', to: '/services' },
-      { label: 'Maintenance & Support', to: '/services' },
-      { label: 'Talk to an Engineer', to: '/contact-us' },
-      { label: 'Request a Project Consultation', to: '/contact-us' },
+      { label: 'Food & Beverage', to: '/industries/food-beverage' },
+      { label: 'Pharmaceutical', to: '/industries/pharmaceutical' },
+      { label: 'Textile', to: '/industries/textile' },
+      { label: 'Mining', to: '/industries/mining' },
+      { label: 'Power Plants', to: '/industries/power-plants' },
+      { label: 'Agriculture & Irrigation', to: '/industries/agriculture-irrigation' },
     ],
   },
   {
     title: 'Company',
     links: [
       { label: 'About Us', to: '/about-us' },
-      { label: 'Projects', to: '/projects' },
       { label: 'Blog', to: '/blog' },
       { label: 'Contact Us', to: '/contact-us' },
+      { label: 'Request a Quote', to: '/contact-us' },
     ],
   },
 ]
 
 export const footerHighlights = [
   {
-    title: 'Integrated Delivery',
-    text: 'Water treatment, boreholes, pumps, solar systems, and controls aligned into one technical offering.',
+    title: 'Product-First Catalog',
+    text: 'Industrial water-treatment products, components, chemicals, pumps, controls, and instrumentation organized for faster discovery.',
   },
   {
-    title: 'Field to Plant',
-    text: 'Support for domestic, commercial, industrial, agricultural, and community water applications.',
+    title: 'Industry Alignment',
+    text: 'Category browsing is supported by industry views so buyers can move from application need to product shortlist quickly.',
   },
   {
-    title: 'Practical Support',
-    text: 'Designed to help clients move from assessment and design into implementation and long-term system reliability.',
+    title: 'RFQ Ready',
+    text: 'Every major product path is designed to move directly into a quotation request instead of a consumer-style cart flow.',
   },
 ]
 
 export const socialLinks = [
   { label: 'Facebook', href: company.socialLinks.facebook, icon: 'facebook' },
   { label: 'Twitter', href: company.socialLinks.twitter, icon: 'twitter' },
-  { label: 'Google', href: company.socialLinks.google, icon: 'google' },
   { label: 'Instagram', href: company.socialLinks.instagram, icon: 'instagram' },
   { label: 'LinkedIn', href: company.socialLinks.linkedin, icon: 'linkedin' },
   { label: 'WhatsApp', href: company.whatsapp, icon: 'whatsapp' },
@@ -68,8 +65,8 @@ export const contactItems = [
 ]
 
 export const footerMetaLinks = [
-  { label: 'Services', to: '/services' },
-  { label: 'Solutions', to: '/solutions' },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Products', to: '/products' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact-us' },
 ]
