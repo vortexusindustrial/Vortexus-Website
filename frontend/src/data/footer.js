@@ -59,7 +59,7 @@ export const socialLinks = [
 export const contactItems = [
   { label: 'Nairobi, Kenya', icon: 'address' },
   { label: company.email, href: `mailto:${company.email}`, icon: 'email' },
-  { label: company.phone, href: 'tel:+254700000000', icon: 'phone' },
+  { label: company.phone, href: 'tel:0702539456', icon: 'phone' },
   { label: company.tagline, icon: 'fax' },
 ]
 

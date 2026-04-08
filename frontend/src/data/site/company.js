@@ -6,7 +6,7 @@ export const company = {
   logoOnDark: '/logos and favicon/Vortex White.png',
   favicon: '/logos and favicon/favicon.png',
   email: 'info@vortexusindustrial.com',
-  phone: '+254 700 000 000',
+  phone: '0702539456',
   whatsapp: 'https://wa.me/254700000000',
   socialLinks: {
     facebook: '#',
