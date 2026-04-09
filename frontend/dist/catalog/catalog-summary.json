@@ -1,0 +1,219 @@
+{
+  "totalProducts": 1907,
+  "featuredProducts": [
+    {
+      "id": 1,
+      "slug": "expersion-module-230vac",
+      "name": "Expersion Module 230VAC",
+      "itemGroup": "wt-Elecritical",
+      "categorySlug": "automation-control",
+      "subcategory": "Control Panels",
+      "summary": "Control Panels item currently available in stock and listed in the product catalog.",
+      "description": "Expersion Module 230VAC is part of the current stock list under wt-Elecritical. It is presented online as a control panels product within automation & control so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Panel automation",
+        "Control logic",
+        "Remote monitoring"
+      ],
+      "specHighlights": [
+        "Stock group: wt-Elecritical",
+        "Category: Automation & Control",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "power-plants",
+        "food-beverage",
+        "agriculture-irrigation"
+      ],
+      "image": "/Control pannels/Expersion Module 230VAC.jpg",
+      "featured": true
+    },
+    {
+      "id": 6,
+      "slug": "ferrule-connector-2-5mm",
+      "name": "Ferrule Connector 2.5mm",
+      "itemGroup": "Wt-Ro Machines Accessories",
+      "categorySlug": "reverse-osmosis-systems",
+      "subcategory": "RO Plants",
+      "summary": "RO Plants item currently available in stock and listed in the product catalog.",
+      "description": "Ferrule Connector 2.5mm is part of the current stock list under Wt-Ro Machines Accessories. It is presented online as a ro plants product within reverse osmosis (ro) systems so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Brackish-water treatment",
+        "Industrial desalting",
+        "Purified water preparation"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Ro Machines Accessories",
+        "Category: Reverse Osmosis (RO) Systems",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "pharmaceutical",
+        "power-plants",
+        "food-beverage"
+      ],
+      "image": "/electricals/Ferrule Connector 2.5mm.jpeg",
+      "featured": true
+    },
+    {
+      "id": 12,
+      "slug": "sand-media-c",
+      "name": "Sand media C",
+      "itemGroup": "Wt-Medias",
+      "categorySlug": "filtration-systems",
+      "subcategory": "Sand Filters",
+      "summary": "Sand Filters item currently available in stock and listed in the product catalog.",
+      "description": "Sand media C is part of the current stock list under Wt-Medias. It is presented online as a sand filters product within filtration systems so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Water polishing",
+        "Pretreatment for membranes",
+        "Utility water conditioning"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Medias",
+        "Category: Filtration Systems",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "food-beverage",
+        "pharmaceutical",
+        "agriculture-irrigation"
+      ],
+      "image": "/Sand media/Sand media C.jpeg",
+      "featured": true
+    },
+    {
+      "id": 16,
+      "slug": "cable-ties-8-500mm-100-pcs",
+      "name": "Cable ties 8*500mm 100 pcs",
+      "itemGroup": "Wt-Borehole Accessories",
+      "categorySlug": "pumps-fluid-handling",
+      "subcategory": "Submersible Pumps",
+      "summary": "Submersible Pumps item currently available in stock and listed in the product catalog.",
+      "description": "Cable ties 8*500mm 100 pcs is part of the current stock list under Wt-Borehole Accessories. It is presented online as a submersible pumps product within pumps & fluid handling so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Water transfer",
+        "Pressurization",
+        "Plant utility circulation"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Borehole Accessories",
+        "Category: Pumps & Fluid Handling",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "agriculture-irrigation",
+        "food-beverage",
+        "mining"
+      ],
+      "image": "/electricals/cable ties.jpeg",
+      "featured": true
+    },
+    {
+      "id": 17,
+      "slug": "flanges-2-1-2-ss",
+      "name": "Flanges 2 1/2' ss",
+      "itemGroup": "Wt-Water Meters",
+      "categorySlug": "monitoring-instrumentation",
+      "subcategory": "Flow Meters",
+      "summary": "Flow Meters item currently available in stock and listed in the product catalog.",
+      "description": "Flanges 2 1/2' ss is part of the current stock list under Wt-Water Meters. It is presented online as a flow meters product within monitoring & instrumentation so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Online quality monitoring",
+        "Process verification",
+        "Plant visibility"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Water Meters",
+        "Category: Monitoring & Instrumentation",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "power-plants",
+        "food-beverage"
+      ],
+      "image": "/images/products/monitoring-instrumentation/smart-water-meter.webp",
+      "featured": true
+    },
+    {
+      "id": 23,
+      "slug": "antiscallant-high-silica-5kg",
+      "name": "Antiscallant  High Silica 5kg",
+      "itemGroup": "Wt-Chemicals",
+      "categorySlug": "water-treatment-chemicals",
+      "subcategory": "Scale Inhibitors",
+      "summary": "Scale Inhibitors item currently available in stock and listed in the product catalog.",
+      "description": "Antiscallant  High Silica 5kg is part of the current stock list under Wt-Chemicals. It is presented online as a scale inhibitors product within water treatment chemicals so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Clarification programs",
+        "Disinfection support",
+        "Scaling and corrosion control"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Chemicals",
+        "Category: Water Treatment Chemicals",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "food-beverage",
+        "textile",
+        "power-plants"
+      ],
+      "image": "/images/products/water-treatment-chemicals/antiscalant-low.webp",
+      "featured": true
+    },
+    {
+      "id": 107,
+      "slug": "victaulic-coupling-21-2",
+      "name": "Victaulic coupling 21/2\"",
+      "itemGroup": "Wt-Vessels Accessories",
+      "categorySlug": "storage-tanks",
+      "subcategory": "Pressure Vessels",
+      "summary": "Pressure Vessels item currently available in stock and listed in the product catalog.",
+      "description": "Victaulic coupling 21/2\" is part of the current stock list under Wt-Vessels Accessories. It is presented online as a pressure vessels product within storage & tanks so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Chemical storage",
+        "Water balancing",
+        "Process buffering"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Vessels Accessories",
+        "Category: Storage & Tanks",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "food-beverage",
+        "agriculture-irrigation",
+        "textile"
+      ],
+      "image": "/images/products/storage-tanks/pressure-vessel.jpg",
+      "featured": true
+    },
+    {
+      "id": 111,
+      "slug": "telescopic-handle-2-4m",
+      "name": "Telescopic Handle 2-4M",
+      "itemGroup": "Wt-Pool Accessories",
+      "categorySlug": "disinfection-systems",
+      "subcategory": "Chlorination Systems",
+      "summary": "Chlorination Systems item currently available in stock and listed in the product catalog.",
+      "description": "Telescopic Handle 2-4M is part of the current stock list under Wt-Pool Accessories. It is presented online as a chlorination systems product within disinfection systems so buyers can find it quickly, compare related items, and move into RFQ.",
+      "applications": [
+        "Microbiological control",
+        "Post-treatment protection",
+        "Storage and delivery hygiene"
+      ],
+      "specHighlights": [
+        "Stock group: Wt-Pool Accessories",
+        "Category: Disinfection Systems",
+        "Model, size, or rating is usually included directly in the item name"
+      ],
+      "industrySlugs": [
+        "food-beverage",
+        "pharmaceutical"
+      ],
+      "image": "/images/products/disinfection-systems/uv-complete-system.jpg",
+      "featured": true
+    }
+  ]
+}
