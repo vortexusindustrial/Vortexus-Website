@@ -6,6 +6,7 @@ import Seo from '../components/seo/Seo'
 import { industriesCatalog } from '../data/productCatalog'
 import { brandsCatalog } from '../data/brandsCatalog'
 import { loadCatalog, loadCatalogSummary } from '../lib/catalogApi'
+import { trackEvent } from '../lib/analytics'
 import { company } from '../data/site/company'
 
 const treatmentImage = '/homepage products (1).png'
@@ -191,6 +192,11 @@ function HomePage() {
               <NavLink
                 key={brand.name}
                 to={`/products?brand=${encodeURIComponent(brand.slug)}`}
+                onClick={() =>
+                  trackEvent('view_brand_products', {
+                    brand_name: brand.name,
+                    brand_slug: brand.slug,
+                  })}
                 className="flex min-h-[56px] items-center justify-center px-2 py-2 transition hover:-translate-y-0.5 sm:min-h-[70px] sm:px-3 sm:py-3"
               >
                 <img

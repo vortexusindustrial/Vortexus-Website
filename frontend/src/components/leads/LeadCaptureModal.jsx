@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { apiRequest } from '../../lib/api'
+import Swal from 'sweetalert2'
+import { trackEvent } from '../../lib/analytics'
+import { submitWeb3Form } from '../../lib/web3forms'
 
 function LeadCaptureModal({
   isOpen,
@@ -17,8 +19,6 @@ function LeadCaptureModal({
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
 
   useEffect(() => {
     if (!isOpen) {
@@ -42,8 +42,6 @@ function LeadCaptureModal({
 
   useEffect(() => {
     if (!isOpen) {
-      setError('')
-      setSuccess('')
       setIsSubmitting(false)
     }
   }, [isOpen])
@@ -55,29 +53,25 @@ function LeadCaptureModal({
   const handleSubmit = async (event) => {
     event.preventDefault()
     setIsSubmitting(true)
-    setError('')
-    setSuccess('')
 
     try {
-      await apiRequest('/leads/public', {
-        method: 'POST',
-        body: {
+      await submitWeb3Form({
+        subject: `Website Inquiry${productInterest ? `: ${productInterest}` : ''}`,
+        fromName: 'Vortexus Website Inquiry',
+        replyTo: formData.email,
+        fields: {
+          inquiry_type: 'Website Inquiry',
           customer_name: formData.name,
-          company_name: formData.company,
+          company_name: formData.company || 'Not provided',
           email: formData.email,
           phone: formData.phone,
-          source_channel: 'website',
-          source_medium: 'cta',
           landing_page: landingPage,
-          first_page: landingPage,
-          product_interest: productInterest || undefined,
-          service_interest: serviceInterest || undefined,
+          product_interest: productInterest || 'Not specified',
+          service_interest: serviceInterest || 'General inquiry',
           message: formData.message,
-          attribution_owner: 'website',
         },
       })
 
-      setSuccess('Your inquiry has been captured. Our team will reach out shortly.')
       setFormData({
         name: '',
         company: '',
@@ -85,8 +79,26 @@ function LeadCaptureModal({
         phone: '',
         message: '',
       })
+      trackEvent('submit_rfq', {
+        submission_type: 'modal_inquiry',
+        landing_page: landingPage,
+        product_interest: productInterest || '(not set)',
+        service_interest: serviceInterest || 'General inquiry',
+      })
+      await Swal.fire({
+        icon: 'success',
+        title: 'Inquiry Sent',
+        text: 'Your inquiry has been captured. Our team will reach out shortly.',
+        confirmButtonColor: '#33adea',
+      })
+      onClose()
     } catch (submitError) {
-      setError(submitError.message)
+      await Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: submitError.message,
+        confirmButtonColor: '#33adea',
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -185,18 +197,6 @@ function LeadCaptureModal({
               required
             />
           </label>
-
-          {error ? (
-            <div className="rounded-[1rem] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {error}
-            </div>
-          ) : null}
-
-          {success ? (
-            <div className="rounded-[1rem] border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-              {success}
-            </div>
-          ) : null}
 
           <button
             type="submit"

@@ -3,6 +3,7 @@ import { Navigate, NavLink, useParams } from 'react-router-dom'
 import CompareButton from '../components/catalog/CompareButton'
 import LeadCaptureModal from '../components/leads/LeadCaptureModal'
 import Seo from '../components/seo/Seo'
+import { trackEvent } from '../lib/analytics'
 import {
   getCategoryBySlug,
   getIndustryBySlug,
@@ -47,6 +48,19 @@ function ProductDetailPage() {
     .map((slug) => getIndustryBySlug(slug))
     .filter(Boolean)
   const relatedProducts = getRelatedCatalogProducts(catalogProducts, product, 4)
+
+  useEffect(() => {
+    if (!product) {
+      return
+    }
+
+    trackEvent('view_product', {
+      product_name: product.name,
+      product_slug: product.slug,
+      category: category?.name || '(not set)',
+      subcategory: product.subcategory || '(not set)',
+    })
+  }, [product, category?.name])
 
   return (
     <div className="space-y-16 text-brand-ink lg:space-y-24">

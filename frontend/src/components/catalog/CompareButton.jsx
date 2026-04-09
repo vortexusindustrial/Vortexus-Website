@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useProductCompare from '../../hooks/useProductCompare'
+import { trackEvent } from '../../lib/analytics'
 import { MAX_COMPARE_ITEMS } from '../../lib/compareStore'
 
 function CompareButton({
@@ -35,8 +36,16 @@ function CompareButton({
 
           if (result.reason === 'added') {
             setMessage('Added to compare.')
+            trackEvent('compare_products', {
+              compare_action: 'added',
+              product_slug: productSlug,
+            })
           } else if (result.reason === 'removed') {
             setMessage('Removed from compare.')
+            trackEvent('compare_products', {
+              compare_action: 'removed',
+              product_slug: productSlug,
+            })
           }
         }}
         className={resolvedClassName}

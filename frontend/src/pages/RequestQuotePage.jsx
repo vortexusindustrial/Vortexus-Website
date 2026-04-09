@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import FullBleedHero from '../components/sections/FullBleedHero'
 import Seo from '../components/seo/Seo'
 import { industriesCatalog, productCategories } from '../data/productCatalog'
-import { apiRequest } from '../lib/api'
+import { trackEvent } from '../lib/analytics'
+import { submitWeb3Form } from '../lib/web3forms'
 
 function RequestQuotePage() {
   const [searchParams] = useSearchParams()
@@ -19,8 +21,6 @@ function RequestQuotePage() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState('')
-  const [submitSuccess, setSubmitSuccess] = useState('')
 
   const selectedCategory = useMemo(
     () => productCategories.find((category) => category.slug === formData.categorySlug) || null,
@@ -56,36 +56,27 @@ function RequestQuotePage() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     setIsSubmitting(true)
-    setSubmitError('')
-    setSubmitSuccess('')
 
     try {
-      await apiRequest('/leads/public', {
-        method: 'POST',
-        body: {
+      await submitWeb3Form({
+        subject: `RFQ${formData.productName ? `: ${formData.productName}` : ''}`,
+        fromName: 'Vortexus RFQ Form',
+        replyTo: formData.email,
+        fields: {
+          inquiry_type: 'RFQ',
           customer_name: formData.fullName,
-          company_name: formData.companyName,
+          company_name: formData.companyName || 'Not provided',
           email: formData.email,
           phone: formData.phone,
-          source_channel: 'website',
-          source_medium: 'rfq-page',
           landing_page: '/request-quote',
-          first_page: '/request-quote',
-          product_interest: formData.productName || selectedCategory?.name || undefined,
-          service_interest: selectedIndustry?.name || selectedCategory?.name || 'RFQ',
-          message: [
-            formData.quantity ? `Quantity / size requirement: ${formData.quantity}` : null,
-            selectedCategory ? `Category: ${selectedCategory.name}` : null,
-            selectedIndustry ? `Industry: ${selectedIndustry.name}` : null,
-            formData.message,
-          ]
-            .filter(Boolean)
-            .join('\n\n'),
-          attribution_owner: 'website',
+          product_interest: formData.productName || selectedCategory?.name || 'Not specified',
+          category: selectedCategory?.name || 'Not specified',
+          industry: selectedIndustry?.name || 'Not specified',
+          quantity_or_size: formData.quantity || 'Not provided',
+          message: formData.message,
         },
       })
 
-      setSubmitSuccess('Your quotation request has been submitted. Our team will follow up with the next technical and commercial steps.')
       setFormData({
         fullName: '',
         companyName: '',
@@ -97,8 +88,26 @@ function RequestQuotePage() {
         quantity: '',
         message: '',
       })
+      trackEvent('submit_rfq', {
+        submission_type: 'rfq_page',
+        landing_page: '/request-quote',
+        product_interest: formData.productName || selectedCategory?.name || '(not set)',
+        category: selectedCategory?.name || '(not set)',
+        industry: selectedIndustry?.name || '(not set)',
+      })
+      await Swal.fire({
+        icon: 'success',
+        title: 'RFQ Sent',
+        text: 'Your quotation request has been submitted. Our team will follow up with the next technical and commercial steps.',
+        confirmButtonColor: '#33adea',
+      })
     } catch (error) {
-      setSubmitError(error.message)
+      await Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: error.message,
+        confirmButtonColor: '#33adea',
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -277,18 +286,6 @@ function RequestQuotePage() {
               required
             />
           </label>
-
-          {submitError ? (
-            <div className="rounded-[1rem] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {submitError}
-            </div>
-          ) : null}
-
-          {submitSuccess ? (
-            <div className="rounded-[1rem] border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-              {submitSuccess}
-            </div>
-          ) : null}
 
           <button
             type="submit"
