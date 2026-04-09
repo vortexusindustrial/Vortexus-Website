@@ -15,17 +15,17 @@ const heroSlides = [
   {
     src: treatmentImage,
     alt: 'Industrial water treatment equipment and product systems',
-    fit: 'object-contain object-center',
+    fit: 'object-cover object-center',
   },
   {
     src: fieldImage,
     alt: 'Field water infrastructure installation and product deployment',
-    fit: 'object-contain object-center',
+    fit: 'object-cover object-center',
   },
   {
     src: thirdHeroImage,
     alt: 'Industrial water-treatment products and product-brand presentation',
-    fit: 'object-contain object-center',
+    fit: 'object-cover object-center',
   },
 ]
 
@@ -134,7 +134,7 @@ function HomePage() {
       />
       <section className="relative left-1/2 mt-0 w-screen -translate-x-1/2 bg-white">
         <div className="mx-auto w-full max-w-[1800px] px-0 sm:px-4 lg:px-6">
-          <div className="relative overflow-hidden bg-white aspect-[16/8] sm:aspect-[16/6.6] lg:aspect-[16/5.2]">
+          <div className="relative overflow-hidden bg-white aspect-[16/8.4] sm:aspect-[16/6.9] lg:aspect-[16/5.5]">
             <img
               src={activeHeroSlide.src}
               alt={activeHeroSlide.alt}
