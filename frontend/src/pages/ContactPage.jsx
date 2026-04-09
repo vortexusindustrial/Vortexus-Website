@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 import { offices as officeLocations } from '../data/mock/offices'
 import BlueAccentHero from '../components/sections/BlueAccentHero'
 import Seo from '../components/seo/Seo'
-import { apiRequest } from '../lib/api'
+import { trackEvent } from '../lib/analytics'
+import { submitWeb3Form } from '../lib/web3forms'
 
 function ContactPage() {
   const activeOffices = officeLocations.filter((office) => office.coordinates)
@@ -16,8 +18,6 @@ function ContactPage() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState('')
-  const [submitSuccess, setSubmitSuccess] = useState('')
 
   const handleChange = (field) => (event) => {
     setFormData((current) => ({ ...current, [field]: event.target.value }))
@@ -25,36 +25,28 @@ function ContactPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitError('')
-    setSubmitSuccess('')
     setIsSubmitting(true)
 
     const customerName = `${formData.firstName} ${formData.lastName}`.trim()
 
     try {
-      await apiRequest('/leads/public', {
-        method: 'POST',
-        body: {
+      await submitWeb3Form({
+        subject: 'Contact Form Submission',
+        fromName: 'Vortexus Contact Form',
+        replyTo: formData.email,
+        fields: {
+          inquiry_type: 'Contact Form',
           customer_name: customerName,
-          company_name: formData.companyName,
+          company_name: formData.companyName || 'Not provided',
           email: formData.email,
           phone: formData.phone,
-          source_channel: 'website',
-          source_medium: 'direct',
+          position: formData.position || 'Not provided',
           landing_page: '/contact-us',
-          first_page: '/contact-us',
           service_interest: 'General inquiry',
-          message: [
-            formData.position ? `Position: ${formData.position}` : null,
-            formData.message,
-          ]
-            .filter(Boolean)
-            .join('\n\n'),
-          attribution_owner: 'website',
+          message: formData.message,
         },
       })
 
-      setSubmitSuccess('Your enquiry has been submitted successfully. Our team will reach out to you.')
       setFormData({
         firstName: '',
         lastName: '',
@@ -64,8 +56,23 @@ function ContactPage() {
         position: '',
         message: '',
       })
+      trackEvent('submit_contact_form', {
+        landing_page: '/contact-us',
+        has_company: Boolean(formData.companyName),
+      })
+      await Swal.fire({
+        icon: 'success',
+        title: 'Message Sent',
+        text: 'Your enquiry has been submitted successfully. Our team will reach out to you.',
+        confirmButtonColor: '#33adea',
+      })
     } catch (error) {
-      setSubmitError(error.message)
+      await Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: error.message,
+        confirmButtonColor: '#33adea',
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -193,18 +200,6 @@ function ContactPage() {
               required
             />
           </label>
-
-          {submitError ? (
-            <div className="rounded-[1rem] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {submitError}
-            </div>
-          ) : null}
-
-          {submitSuccess ? (
-            <div className="rounded-[1rem] border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-              {submitSuccess}
-            </div>
-          ) : null}
 
           <div className="flex justify-center">
             <button

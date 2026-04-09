@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import LeadCaptureModal from '../components/leads/LeadCaptureModal'
 import Seo from '../components/seo/Seo'
 import { industriesCatalog } from '../data/productCatalog'
 import { brandsCatalog } from '../data/brandsCatalog'
 import { loadCatalog, loadCatalogSummary } from '../lib/catalogApi'
+import { trackEvent } from '../lib/analytics'
 import { company } from '../data/site/company'
 
 const treatmentImage = '/homepage products (1).png'
 const fieldImage = '/homepage products (2).png'
+const thirdHeroImage = '/homepage products (3).png'
 const heroSlides = [
   {
     src: treatmentImage,
@@ -20,11 +23,16 @@ const heroSlides = [
     alt: 'Field water infrastructure installation and product deployment',
     fit: 'object-cover object-center',
   },
+  {
+    src: thirdHeroImage,
+    alt: 'Industrial water-treatment products and product-brand presentation',
+    fit: 'object-cover object-center',
+  },
 ]
-const animatedHeroSlides = [...heroSlides, heroSlides[0]]
 
 function HomePage() {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false)
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0)
   const [catalogProducts, setCatalogProducts] = useState([])
   const [catalogSummary, setCatalogSummary] = useState({
     totalProducts: 0,
@@ -48,12 +56,38 @@ function HomePage() {
     }
   }, [])
 
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentHeroSlide((current) =>
+        current === heroSlides.length - 1 ? 0 : current + 1,
+      )
+    }, 5000)
+
+    return () => {
+      window.clearInterval(intervalId)
+    }
+  }, [])
+
   const spotlightProducts = [
     catalogProducts.find((product) => product.name === 'CNP CHL 8-50 1PH/220V/2.2KW SS304'),
     catalogProducts.find((product) => product.name === 'Membrane FilmTec BW30 PRO-4040'),
     catalogProducts.find((product) => product.name === 'Water meter 20E 3/4'),
     catalogProducts.find((product) => product.name === 'RO SKID 1000LPH'),
   ].filter(Boolean)
+
+  const activeHeroSlide = heroSlides[currentHeroSlide] || heroSlides[0]
+
+  const goToPreviousHeroSlide = () => {
+    setCurrentHeroSlide((current) =>
+      current === 0 ? heroSlides.length - 1 : current - 1,
+    )
+  }
+
+  const goToNextHeroSlide = () => {
+    setCurrentHeroSlide((current) =>
+      current === heroSlides.length - 1 ? 0 : current + 1,
+    )
+  }
 
   const renderProductCard = (product) => (
     <article
@@ -99,33 +133,50 @@ function HomePage() {
         title="Industrial Water Treatment Products"
         description={`${company.name} is building a product-focused catalog for water treatment equipment, RO systems, chemicals, pumps, instrumentation, automation, tanks, and industrial water process applications.`}
       />
-      <section className="relative left-1/2 mt-0 h-[300px] w-screen -translate-x-1/2 overflow-hidden bg-brand-ink sm:h-[380px] lg:h-[500px]">
-        <div className="absolute inset-0">
-          <div
-            className="hero-bg-track flex h-full"
-            style={{ width: `${animatedHeroSlides.length * 100}%` }}
-          >
-            {animatedHeroSlides.map((slide, index) => (
-              <img
-                key={`${slide.src}-${index}`}
-                src={slide.src}
-                alt={slide.alt}
-                className={`h-full shrink-0 ${slide.fit}`}
-                style={{ width: `${100 / animatedHeroSlides.length}%` }}
+      <section className="relative left-1/2 mt-0 w-screen -translate-x-1/2 bg-white">
+        <div className="mx-auto w-full max-w-[1800px] px-0 sm:px-4 lg:px-6">
+          <div className="relative overflow-hidden bg-white aspect-[16/8.4] sm:aspect-[16/6.9] lg:aspect-[16/5.5]">
+            <img
+              src={activeHeroSlide.src}
+              alt={activeHeroSlide.alt}
+              className={`absolute inset-0 h-full w-full bg-white ${activeHeroSlide.fit}`}
+            />
+
+            <button
+              type="button"
+              onClick={goToPreviousHeroSlide}
+              aria-label="Show previous homepage image"
+              className="absolute left-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center text-white transition hover:text-white/80 sm:left-4 sm:h-12 sm:w-12"
+            >
+              <FaChevronLeft className="text-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-5xl" />
+            </button>
+
+            <button
+              type="button"
+              onClick={goToNextHeroSlide}
+              aria-label="Show next homepage image"
+              className="absolute right-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center text-white transition hover:text-white/80 sm:right-4 sm:h-12 sm:w-12"
+            >
+              <FaChevronRight className="text-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-5xl" />
+            </button>
+
+            <div className="absolute bottom-4 right-4 flex items-center gap-2 sm:bottom-5 sm:right-5">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.src}
+                type="button"
+                onClick={() => setCurrentHeroSlide(index)}
+                aria-label={`Show homepage image ${index + 1}`}
+                className={[
+                  'h-2.5 rounded-full transition',
+                  currentHeroSlide === index
+                    ? 'w-8 bg-white'
+                    : 'w-2.5 bg-white/55 hover:bg-white/80',
+                ].join(' ')}
               />
             ))}
           </div>
         </div>
-
-        <div className="relative mx-auto h-[300px] w-full max-w-7xl px-4 py-6 sm:h-[380px] sm:px-8 lg:h-[500px] lg:px-10 lg:py-10">
-          <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5">
-            <NavLink
-              to="/products"
-              className="inline-flex items-center justify-center rounded-full bg-brand-green-soft px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-green"
-            >
-              Explore Products
-            </NavLink>
-          </div>
         </div>
       </section>
 
@@ -141,6 +192,11 @@ function HomePage() {
               <NavLink
                 key={brand.name}
                 to={`/products?brand=${encodeURIComponent(brand.slug)}`}
+                onClick={() =>
+                  trackEvent('view_brand_products', {
+                    brand_name: brand.name,
+                    brand_slug: brand.slug,
+                  })}
                 className="flex min-h-[56px] items-center justify-center px-2 py-2 transition hover:-translate-y-0.5 sm:min-h-[70px] sm:px-3 sm:py-3"
               >
                 <img

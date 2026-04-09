@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import GoogleAnalyticsTracker from './components/analytics/GoogleAnalyticsTracker'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import AdminLayout from './components/layout/AdminLayout'
 import RouteScrollManager from './components/layout/RouteScrollManager'
@@ -27,6 +28,7 @@ import SolutionsPage from './pages/SolutionsPage'
 function App() {
   return (
     <>
+      <GoogleAnalyticsTracker />
       <RouteScrollManager />
       <Routes>
         <Route element={<AdminLayout />}>

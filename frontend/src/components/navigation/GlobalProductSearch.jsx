@@ -6,6 +6,7 @@ import {
   industriesCatalog,
   productCategories,
 } from '../../data/productCatalog'
+import { trackEvent } from '../../lib/analytics'
 import { loadCatalog } from '../../lib/catalogApi'
 
 function useDebouncedValue(value, delay = 220) {
@@ -193,6 +194,17 @@ function GlobalProductSearch({ mobile = false, onNavigate, desktopWide = false }
   }, [catalogProducts, normalizedQuery])
 
   const handleOpenSuggestion = (suggestion) => {
+    trackEvent('select_search_result', {
+      search_term: query.trim(),
+      result_type: suggestion.type,
+      result_name:
+        suggestion.type === 'product'
+          ? suggestion.product.name
+          : suggestion.type === 'category'
+            ? suggestion.category.name
+            : suggestion.industry.name,
+    })
+
     if (suggestion.type === 'product') {
       navigate(`/products/item/${suggestion.product.slug}`)
     }
@@ -209,6 +221,13 @@ function GlobalProductSearch({ mobile = false, onNavigate, desktopWide = false }
   }
 
   const handleOpenCatalog = () => {
+    if (query.trim()) {
+      trackEvent('search', {
+        search_term: query.trim(),
+        search_context: mobile ? 'mobile_nav' : 'desktop_nav',
+      })
+    }
+
     if (!normalizedQuery) {
       navigate('/products')
       onNavigate?.()

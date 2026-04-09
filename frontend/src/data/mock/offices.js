@@ -19,7 +19,7 @@ export const offices = [
     country: 'Mombasa',
     company: 'Vortexus Industrial Excellence',
     address: 'Mombasa, Kenya',
-    phone: '+254 702 539 456',
+    phone: '0112302591',
     email: 'info@vortexusindustrial.com',
     coordinates: [39.6682, -4.0435],
   },
